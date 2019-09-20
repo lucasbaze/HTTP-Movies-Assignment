@@ -5,7 +5,7 @@ import axios from 'axios';
 const Form = ({ match }) => {
     const submitHandler = formValues => {
         axios.put(`http://localhost:5000/api/movies/${formValues.id}`, {
-            formValues,
+            ...formValues,
         });
     };
 
@@ -18,7 +18,9 @@ const Form = ({ match }) => {
     useEffect(() => {
         axios
             .get(`http://localhost:5000/api/movies/${id}`)
-            .then(res => setFormValues(res.data))
+            .then(res => {
+                setFormValues(res.data);
+            })
             .catch(err => console.log(err.response));
     }, []);
 
@@ -57,6 +59,18 @@ const Form = ({ match }) => {
                     style={style}
                     placeholder="metascore"
                 />
+                {formValues.stars &&
+                    formValues.stars.map((star, index) => {
+                        return (
+                            <input
+                                type="hidden"
+                                name={'star' + index}
+                                value={formValues.stars[index]}
+                                style={style}
+                                placholder="star"
+                            />
+                        );
+                    })}
                 <button type="submit">Save Changes</button>
             </form>
         </>
