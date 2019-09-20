@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import SavedList from './Movies/SavedList';
 import MovieList from './Movies/MovieList';
-import Movie from './Movies/Movie';
+import { Movie } from './Movies/Movie';
 import Form from './Form';
 
 const App = () => {

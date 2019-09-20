@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from './hooks/useForm';
 import axios from 'axios';
 
-const Form = ({ match }) => {
+const Form = ({ history, match }) => {
     const submitHandler = formValues => {
-        axios.put(`http://localhost:5000/api/movies/${formValues.id}`, {
-            ...formValues,
-        });
+        axios
+            .put(`http://localhost:5000/api/movies/${formValues.id}`, {
+                ...formValues,
+            })
+            .then(res => {
+                if (res.status == 200) {
+                    history.push('/');
+                }
+            });
     };
 
     const [formValues, handleChange, handleSubmit, setFormValues] = useForm(
